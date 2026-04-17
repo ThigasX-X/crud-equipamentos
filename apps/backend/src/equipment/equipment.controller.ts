@@ -36,7 +36,7 @@ export class EquipmentController {
 
   @Get()
   findAll(@Query() filters: FilterEquipmentDto, @Req() req) {
-    return this.equipmentService.findAll(req.user.id, filters.type, filters.status);
+    return this.equipmentService.findAll(req.user.id, filters);
   }
 
   @Get('export/csv')
