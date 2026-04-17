@@ -1,0 +1,684 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   AuthPage.css
+   Design System: Deep purple gradient (esquerda) + branco limpo (direita)
+   Tipografia: system-ui stack (SF Pro no macOS/iOS — sensação Apple nativa)
+───────────────────────────────────────────────────────────────────────────── */
+
+/* ── Tokens ────────────────────────────────────────────────────────────────── */
+.auth-page {
+  --primary:        #6366F1;
+  --primary-dark:   #4F46E5;
+  --primary-light:  rgba(99, 102, 241, 0.1);
+  --primary-ring:   rgba(99, 102, 241, 0.18);
+  --success:        #10B981;
+  --success-light:  rgba(16, 185, 129, 0.12);
+  --danger:         #EF4444;
+  --danger-light:   rgba(239, 68, 68, 0.1);
+  --danger-ring:    rgba(239, 68, 68, 0.15);
+  --text-primary:   #111827;
+  --text-secondary: #6B7280;
+  --text-muted:     #9CA3AF;
+  --border:         #E5E7EB;
+  --surface:        #F9FAFB;
+  --white:          #FFFFFF;
+  --font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', system-ui, sans-serif;
+}
+
+/* ── Layout Principal ──────────────────────────────────────────────────────── */
+.auth-page {
+  display: flex;
+  min-height: 100vh;
+  font-family: var(--font);
+  background: var(--white);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   PAINEL ESQUERDO — Branding com gradiente escuro
+───────────────────────────────────────────────────────────────────────────── */
+.auth-left {
+  display: none;
+  position: relative;
+  flex: 0 0 48%;
+  background: linear-gradient(150deg, #0F0C29 0%, #302B63 55%, #1B1040 100%);
+  color: var(--white);
+  overflow: hidden;
+}
+
+@media (min-width: 1024px) {
+  .auth-left {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.auth-left__content {
+  position: relative;
+  z-index: 2;
+  padding: 56px 52px;
+  max-width: 460px;
+}
+
+/* ── Brand ─────────────────────────────────────────────────────────────────── */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 56px;
+}
+
+.brand__icon {
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+
+.brand__icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.brand__icon--sm {
+  width: 38px;
+  height: 38px;
+  background: linear-gradient(135deg, var(--primary), #8B5CF6);
+  border: none;
+  border-radius: 11px;
+}
+
+.brand__icon--sm svg {
+  width: 18px;
+  height: 18px;
+}
+
+.brand__name {
+  font-size: 21px;
+  font-weight: 300;
+  color: var(--white);
+  letter-spacing: -0.3px;
+}
+
+.brand__name strong {
+  font-weight: 700;
+}
+
+.brand__name--dark {
+  color: var(--text-primary);
+}
+
+/* ── Hero Text ─────────────────────────────────────────────────────────────── */
+.auth-hero__title {
+  font-size: 38px;
+  font-weight: 700;
+  letter-spacing: -1.2px;
+  line-height: 1.1;
+  color: var(--white);
+  margin: 0 0 16px;
+}
+
+.auth-hero__subtitle {
+  font-size: 15px;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0 0 44px;
+}
+
+/* ── Feature List ──────────────────────────────────────────────────────────── */
+.auth-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 44px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.auth-feature {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.auth-feature__icon {
+  width: 34px;
+  height: 34px;
+  background: rgba(255, 255, 255, 0.09);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #A78BFA;
+}
+
+.auth-feature__icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ── Stats ─────────────────────────────────────────────────────────────────── */
+.auth-stats {
+  display: flex;
+  gap: 14px;
+}
+
+.stat-card {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 20px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.stat-card__value {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: -0.6px;
+}
+
+.stat-card__label {
+  font-size: 11.5px;
+  color: rgba(255, 255, 255, 0.45);
+  line-height: 1.4;
+}
+
+/* ── Círculos Decorativos Flutuantes ───────────────────────────────────────── */
+.auth-deco {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.deco-circle {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.deco-circle--1 {
+  width: 520px;
+  height: 520px;
+  top: -140px;
+  right: -160px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.25) 0%, transparent 68%);
+  animation: float 9s ease-in-out infinite;
+}
+
+.deco-circle--2 {
+  width: 320px;
+  height: 320px;
+  bottom: -60px;
+  left: -90px;
+  background: radial-gradient(circle, rgba(79, 70, 229, 0.35) 0%, transparent 68%);
+  animation: float 13s ease-in-out infinite reverse;
+}
+
+.deco-circle--3 {
+  width: 180px;
+  height: 180px;
+  top: 48%;
+  right: 18%;
+  background: radial-gradient(circle, rgba(167, 139, 250, 0.18) 0%, transparent 68%);
+  animation: float 11s ease-in-out infinite 3s;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50%       { transform: translateY(-22px) scale(1.04); }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   PAINEL DIREITO — Formulários
+───────────────────────────────────────────────────────────────────────────── */
+.auth-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  min-height: 100vh;
+  background: var(--white);
+}
+
+/* ── Brand Mobile ──────────────────────────────────────────────────────────── */
+.auth-mobile-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+
+@media (min-width: 1024px) {
+  .auth-mobile-brand {
+    display: none;
+  }
+}
+
+/* ── Card do Formulário ────────────────────────────────────────────────────── */
+.auth-card {
+  width: 100%;
+  max-width: 400px;
+}
+
+/* ── Tabs ──────────────────────────────────────────────────────────────────── */
+.auth-tabs {
+  position: relative;
+  display: flex;
+  background: #F3F4F6;
+  border-radius: 13px;
+  padding: 4px;
+  margin-bottom: 28px;
+}
+
+.auth-tab {
+  flex: 1;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: var(--font);
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  border-radius: 9px;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  transition: color 0.22s ease;
+}
+
+.auth-tab--active {
+  color: var(--text-primary);
+}
+
+/* Bolinha deslizante que indica a aba ativa */
+.auth-tab__slider {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: calc(50% - 4px);
+  background: var(--white);
+  border-radius: 9px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.auth-tab__slider--right {
+  transform: translateX(100%);
+}
+
+/* ── Banner de Erro da API ─────────────────────────────────────────────────── */
+.api-error {
+  background: #FEF2F2;
+  border: 1px solid #FECACA;
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  font-size: 13.5px;
+  color: #DC2626;
+  line-height: 1.4;
+}
+
+/* ── Animação de Troca de Formulário ───────────────────────────────────────── */
+.forms-container {
+  transition: opacity 0.28s ease, transform 0.28s ease;
+}
+
+.forms-container--exit {
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+}
+
+.forms-container--enter {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Formulário ────────────────────────────────────────────────────────────── */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-header {
+  margin-bottom: 24px;
+}
+
+.form-header h2 {
+  font-size: 23px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.55px;
+  margin: 0 0 6px;
+  line-height: 1.2;
+  font-family: var(--font);
+}
+
+.form-header p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  margin-bottom: 16px;
+}
+
+/* ── Campo de Input ────────────────────────────────────────────────────────── */
+.field-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.field-group {
+  display: flex;
+  align-items: center;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  overflow: hidden;
+}
+
+.field-group:focus-within {
+  border-color: var(--primary);
+  background: var(--white);
+  box-shadow: 0 0 0 3.5px var(--primary-ring);
+}
+
+.field-group--error {
+  border-color: var(--danger);
+}
+
+.field-group--error:focus-within {
+  box-shadow: 0 0 0 3.5px var(--danger-ring);
+}
+
+.field-group--success {
+  border-color: var(--success);
+}
+
+.field-input {
+  flex: 1;
+  padding: 13px 16px;
+  font-size: 15px;
+  font-family: var(--font);
+  color: var(--text-primary);
+  background: transparent;
+  border: none;
+  outline: none;
+  min-width: 0;
+}
+
+.field-input::placeholder {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.field-right {
+  padding-right: 5px;
+}
+
+.eye-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  border-radius: 8px;
+  transition: color 0.15s, background 0.15s;
+  font-family: var(--font);
+}
+
+.eye-btn:hover {
+  color: var(--primary);
+  background: var(--primary-light);
+}
+
+.eye-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.field-error-msg {
+  font-size: 12px;
+  color: var(--danger);
+  margin: 0;
+  padding-left: 4px;
+}
+
+/* ── Meta do formulário (lembrar / esqueci senha) ──────────────────────────── */
+.form-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  user-select: none;
+}
+
+.remember-me input[type='checkbox'] {
+  width: 15px;
+  height: 15px;
+  border-radius: 4px;
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+
+/* ── Botões de link ────────────────────────────────────────────────────────── */
+.link-btn {
+  font-size: 13px;
+  font-weight: 500;
+  font-family: var(--font);
+  color: var(--primary);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.15s;
+}
+
+.link-btn:hover {
+  color: var(--primary-dark);
+}
+
+.link-btn--inline {
+  font-size: inherit;
+  font-weight: 600;
+}
+
+/* ── Botão de Submit ───────────────────────────────────────────────────────── */
+.submit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  width: 100%;
+  padding: 14px 24px;
+  background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+  color: var(--white);
+  font-size: 15px;
+  font-weight: 600;
+  font-family: var(--font);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  letter-spacing: -0.1px;
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.38);
+  transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+  margin-bottom: 18px;
+}
+
+.submit-btn:hover:not(:disabled) {
+  transform: translateY(-1.5px);
+  box-shadow: 0 7px 22px rgba(99, 102, 241, 0.46);
+}
+
+.submit-btn:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+}
+
+.submit-btn:disabled {
+  opacity: 0.72;
+  cursor: not-allowed;
+}
+
+/* Spinner do botão */
+.btn-spinner {
+  display: inline-block;
+  width: 17px;
+  height: 17px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: var(--white);
+  border-radius: 50%;
+  animation: spin 0.65s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Linha de troca de modo ────────────────────────────────────────────────── */
+.form-switch {
+  text-align: center;
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  margin: 0 0 6px;
+}
+
+/* ── Medidor de Força da Senha ─────────────────────────────────────────────── */
+.password-strength {
+  margin-bottom: 16px;
+}
+
+.strength-bars {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.strength-bar {
+  flex: 1;
+  height: 3px;
+  background: #E5E7EB;
+  border-radius: 2px;
+  transition: background 0.3s ease;
+}
+
+.strength-bar--1 { background: #EF4444; }
+.strength-bar--2 { background: #F59E0B; }
+.strength-bar--3 { background: #3B82F6; }
+.strength-bar--4 { background: #10B981; }
+
+.strength-checks {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.strength-check {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  color: var(--text-muted);
+  transition: color 0.2s;
+}
+
+.strength-check svg {
+  width: 11px;
+  height: 11px;
+  flex-shrink: 0;
+  opacity: 0.35;
+  transition: opacity 0.2s;
+}
+
+.strength-check--pass {
+  color: var(--success);
+}
+
+.strength-check--pass svg {
+  opacity: 1;
+}
+
+/* ── Termos ────────────────────────────────────────────────────────────────── */
+.terms {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: center;
+  margin: 0 0 20px;
+  line-height: 1.55;
+}
+
+/* ── Selos de Confiança ────────────────────────────────────────────────────── */
+.trust-badges {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 28px;
+  font-size: 11.5px;
+  color: var(--text-muted);
+  letter-spacing: 0.1px;
+}
+
+.trust-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  opacity: 0.5;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   RESPONSIVO — ajustes para telas muito pequenas
+───────────────────────────────────────────────────────────────────────────── */
+@media (max-width: 400px) {
+  .auth-right {
+    padding: 32px 16px;
+  }
+
+  .auth-hero__title {
+    font-size: 30px;
+  }
+
+  .strength-checks {
+    grid-template-columns: 1fr;
+  }
+}
