@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  db-homol:
+    image: postgres:15-alpine
+    container_name: tscontrol-db-homol
+    environment:
+      POSTGRES_DB: tscontrol_homol
+      POSTGRES_USER: ${DB_USERNAME_HOMOL}
+      POSTGRES_PASSWORD: ${DB_PASSWORD_HOMOL}
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata_homol:/var/lib/postgresql/data
+
+  api-homol:
+    build: ./apps/backend
+    container_name: tscontrol-api-homol
+    ports:
+      - "8081:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=homol
+      - SPRING_DATASOURCE_URL=${SPRING_DB_URL_HOMOL}
+      - SPRING_DATASOURCE_USERNAME=${DB_USERNAME_HOMOL}
+      - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD_HOMOL}
+      - JWT_SECRET=${JWT_SECRET_HOMOL}
+    depends_on:
+      - db-homol
+
+  frontend-homol:
+    build: ./apps/frontend
+    container_name: tscontrol-frontend-homol
+    ports:
+      - "8082:80"
+    depends_on:
+      - api-homol
+
+volumes:
+  pgdata_homol:
