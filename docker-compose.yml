@@ -3,33 +3,43 @@ version: '3.8'
 services:
   db:
     image: postgres:15-alpine
-    container_name: tscontrol-db
+    container_name: it-assets-db
     environment:
-      POSTGRES_DB: tscontrol
-      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_DB: UNICEPLAC_EQUIPAMENTOS
+      POSTGRES_USER: ${DB_USERNAME:-crudEquipamentos}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME:-crudEquipamentos} -d UNICEPLAC_EQUIPAMENTOS"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   api:
     build: ./apps/backend
-    container_name: tscontrol-api
+    container_name: it-assets-api
     ports:
-      - "8080:8080"
+      - "3000:3000"
     environment:
-      - SPRING_PROFILES_ACTIVE=dev
-      - SPRING_DATASOURCE_URL=${SPRING_DB_URL}
-      - SPRING_DATASOURCE_USERNAME=${DB_USERNAME}
-      - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
+      - NODE_ENV=production
+      - PORT=3000
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=UNICEPLAC_EQUIPAMENTOS
+      - DB_USERNAME=${DB_USERNAME:-crudEquipamentos}
+      - DB_PASSWORD=${DB_PASSWORD}
       - JWT_SECRET=${JWT_SECRET}
+      - JWT_EXPIRES_IN=2h
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
   frontend:
     build: ./apps/frontend
-    container_name: tscontrol-frontend
+    container_name: it-assets-frontend
     ports:
       - "80:80"
     depends_on:
