@@ -6,22 +6,22 @@
 
 /* ── Tokens ────────────────────────────────────────────────────────────────── */
 .auth-page {
-  --primary:        #6366F1;
-  --primary-dark:   #4F46E5;
-  --primary-light:  rgba(99, 102, 241, 0.1);
-  --primary-ring:   rgba(99, 102, 241, 0.18);
+  --primary:        #F59E0B;
+  --primary-dark:   #D97706;
+  --primary-light:  rgba(245, 158, 11, 0.1);
+  --primary-ring:   rgba(245, 158, 11, 0.18);
   --success:        #10B981;
   --success-light:  rgba(16, 185, 129, 0.12);
   --danger:         #EF4444;
   --danger-light:   rgba(239, 68, 68, 0.1);
   --danger-ring:    rgba(239, 68, 68, 0.15);
-  --text-primary:   #111827;
-  --text-secondary: #6B7280;
-  --text-muted:     #9CA3AF;
-  --border:         #E5E7EB;
-  --surface:        #F9FAFB;
+  --text-primary:   #0F172A;
+  --text-secondary: #475569;
+  --text-muted:     #94A3B8;
+  --border:         #E2E8F0;
+  --surface:        #F8FAFC;
   --white:          #FFFFFF;
-  --font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', system-ui, sans-serif;
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
 }
 
 /* ── Layout Principal ──────────────────────────────────────────────────────── */
@@ -39,7 +39,7 @@
   display: none;
   position: relative;
   flex: 0 0 48%;
-  background: linear-gradient(150deg, #0F0C29 0%, #302B63 55%, #1B1040 100%);
+  background: linear-gradient(150deg, #0F172A 0%, #1E293B 55%, #0F172A 100%);
   color: var(--white);
   overflow: hidden;
 }
@@ -89,7 +89,7 @@
 .brand__icon--sm {
   width: 38px;
   height: 38px;
-  background: linear-gradient(135deg, var(--primary), #8B5CF6);
+  background: linear-gradient(135deg, var(--primary), #D97706);
   border: none;
   border-radius: 11px;
 }
@@ -159,7 +159,7 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  color: #A78BFA;
+  color: #F59E0B;
 }
 
 .auth-feature__icon svg {
@@ -529,28 +529,28 @@
   gap: 9px;
   width: 100%;
   padding: 14px 24px;
-  background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
-  color: var(--white);
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+  color: #0F172A;
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 700;
   font-family: var(--font);
   border: none;
   border-radius: 12px;
   cursor: pointer;
   letter-spacing: -0.1px;
-  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.38);
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.38);
   transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
   margin-bottom: 18px;
 }
 
 .submit-btn:hover:not(:disabled) {
   transform: translateY(-1.5px);
-  box-shadow: 0 7px 22px rgba(99, 102, 241, 0.46);
+  box-shadow: 0 7px 22px rgba(245, 158, 11, 0.46);
 }
 
 .submit-btn:active:not(:disabled) {
   transform: translateY(0);
-  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
 }
 
 .submit-btn:disabled {
