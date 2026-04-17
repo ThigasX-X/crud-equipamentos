@@ -9,6 +9,8 @@ import {
 import { Request, Response } from 'express';
 import { QueryFailedError } from 'typeorm';
 
+type PostgresDriverError = QueryFailedError & { code: string };
+
 @Catch()
 export class GlobalExceptionFilter implements ExceptionFilter {
   private readonly logger = new Logger(GlobalExceptionFilter.name);
@@ -26,19 +28,25 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       status = exception.getStatus();
       const res = exception.getResponse();
       if (typeof res === 'object' && 'message' in res) {
-        message = (res as any).message;
-        error = (res as any).error || exception.name;
+        message = (res as { message: string | string[]; error?: string }).message;
+        error = (res as { error?: string }).error ?? exception.name;
       } else {
         message = res as string;
         error = exception.name;
       }
+      if (status >= 500) {
+        this.logger.error(exception.message, exception.stack);
+      }
     } else if (exception instanceof QueryFailedError) {
+      const pgError = exception as PostgresDriverError;
       status = HttpStatus.BAD_REQUEST;
       error = 'Database Error';
-      if ((exception as any).code === '23505') {
+      if (pgError.code === '23505') {
+        status = HttpStatus.CONFLICT;
         message = 'Registro duplicado — este dado já existe';
       } else {
         message = 'Erro na operação com o banco de dados';
+        this.logger.error(exception.message, exception.stack);
       }
     } else if (exception instanceof Error) {
       this.logger.error(exception.message, exception.stack);
