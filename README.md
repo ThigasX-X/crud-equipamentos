@@ -23,6 +23,33 @@ Sistema desenvolvido como teste técnico para o **UNICEPLAC** — Gerenciamento 
 
 ---
 
+## Variáveis de Ambiente
+
+O projeto usa um arquivo `.env` na raiz, gerado a partir do `.env.example`:
+
+```bash
+cp .env.example .env
+```
+
+Edite o `.env` e preencha os valores:
+
+```env
+DB_USERNAME=crudEquipamentos
+DB_PASSWORD=sua_senha_aqui
+DB_NAME=UNICEPLAC_EQUIPAMENTOS
+
+JWT_SECRET=gere_um_secret_seguro_aqui
+JWT_EXPIRES_IN=2h
+PORT=3000
+
+# (opcional) URL do frontend para CORS em produção
+# FRONTEND_URL=http://localhost:5173
+```
+
+> O `JWT_SECRET` pode ser gerado com: `node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"`
+
+---
+
 ## Instalação e Execução
 
 ### Opção 1 — Docker (Recomendado)
@@ -32,7 +59,10 @@ Sistema desenvolvido como teste técnico para o **UNICEPLAC** — Gerenciamento 
 git clone <url-do-repositorio>
 cd crud-equipamentos
 
-# 2. Suba todos os serviços
+# 2. Configure as variáveis de ambiente
+cp .env.example .env
+
+# 3. Suba todos os serviços
 docker compose up -d --build
 ```
 
@@ -63,7 +93,7 @@ docker run -d \
   -e POSTGRES_USER=crudEquipamentos \
   -e POSTGRES_PASSWORD=123456 \
   -p 5432:5432 \
-  UNICEPLAC_EQUIPAMENTOS:15-alpine
+  postgres:15-alpine
 ```
 
 #### 2. Inicie o Backend
@@ -86,30 +116,6 @@ Acesse: http://localhost:5173
 
 ---
 
-## Variáveis de Ambiente
-
-### Raiz — `.env` (usado pelo Docker Compose)
-
-```env
-DB_USERNAME=crudEquipamentos
-DB_PASSWORD=123456
-JWT_SECRET=QvFSwDBpP8QmNBZInHOayF1qYjMc8Q7+liCFBDj87QE=
-```
-
-### Backend — `apps/backend/.env` (usado na execução local)
-
-```env
-DB_HOST=localhost
-DB_PORT=5432
-DB_NAME=UNICEPLAC_EQUIPAMENTOS
-DB_USERNAME=crudEquipamentos
-DB_PASSWORD=123456
-JWT_SECRET=QvFSwDBpP8QmNBZInHOayF1qYjMc8Q7+liCFBDj87QE=
-JWT_EXPIRES_IN=2h
-PORT=3000
-```
-
----
 
 ## Conexão ao Banco de Dados (DBeaver / pgAdmin / TablePlus)
 
@@ -180,7 +186,7 @@ PORT=3000
 Se preferir usar uma string de conexão:
 
 ```
-UNICEPLAC_EQUIPAMENTOSql://crudEquipamentos:123456@localhost:5432/UNICEPLAC_EQUIPAMENTOS
+postgresql://crudEquipamentos:123456@localhost:5432/UNICEPLAC_EQUIPAMENTOS
 ```
 
 ---
@@ -199,9 +205,10 @@ UNICEPLAC_EQUIPAMENTOSql://crudEquipamentos:123456@localhost:5432/UNICEPLAC_EQUI
 | Método | Rota | Descrição | Auth |
 |--------|------|-----------|------|
 | POST | `/equipments` | Criar equipamento | ✅ |
-| GET | `/equipments` | Listar todos | ✅ |
+| GET | `/equipments` | Listar com paginação | ✅ |
 | GET | `/equipments?type=MONITOR` | Filtrar por tipo | ✅ |
 | GET | `/equipments?status=ACTIVE` | Filtrar por status | ✅ |
+| GET | `/equipments?page=2&limit=10` | Controle de paginação | ✅ |
 | GET | `/equipments/:id` | Buscar por ID | ✅ |
 | PUT | `/equipments/:id` | Atualizar todos os campos | ✅ |
 | PATCH | `/equipments/:id` | Atualizar campos parciais | ✅ |
@@ -214,7 +221,18 @@ UNICEPLAC_EQUIPAMENTOSql://crudEquipamentos:123456@localhost:5432/UNICEPLAC_EQUI
 | GET | `/equipments/export/csv` | Exportar lista em CSV | ✅ |
 | GET | `/equipments/export/json` | Exportar lista em JSON | ✅ |
 
-> Os filtros `?type=` e `?status=` também funcionam nos endpoints de exportação.
+> Os filtros `?type=`, `?status=`, `?page=` e `?limit=` (padrão: 20, máx: 100) também funcionam nos endpoints de exportação, exceto `page`/`limit` que não se aplicam à exportação completa.
+
+#### Resposta paginada
+
+```
+{
+  "data": [ /* array de equipamentos */ ],
+  "total": 42,
+  "page": 1,
+  "limit": 20
+}
+```
 
 ---
 
