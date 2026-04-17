@@ -1,7 +1,7 @@
 import api from './api';
 
 export const equipmentService = {
-  getAll: (filters = {}) => api.get('/equipments', { params: filters }).then((r) => r.data),
+  getAll: (filters = {}) => api.get('/equipments', { params: filters }).then((r) => r.data.data),
   getById: (id) => api.get(`/equipments/${id}`).then((r) => r.data),
   create: (data) => api.post('/equipments', data).then((r) => r.data),
   update: (id, data) => api.put(`/equipments/${id}`, data).then((r) => r.data),
