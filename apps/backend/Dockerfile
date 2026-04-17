@@ -1,15 +1,15 @@
-FROM maven:3.9.6-eclipse-temurin-21-alpine AS build
+FROM node:20-alpine AS builder
 WORKDIR /app
-COPY pom.xml .
-COPY src ./src
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
 
-RUN mvn clean package -DskipTests
-
-FROM eclipse-temurin:21-jre-alpine
+FROM node:20-alpine AS runner
 WORKDIR /app
-
-COPY --from=build /app/target/*.jar app.jar
-
-EXPOSE 8080
-
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENV NODE_ENV=production
+COPY package*.json ./
+RUN npm install --omit=dev
+COPY --from=builder /app/dist ./dist
+EXPOSE 3000
+CMD ["node", "dist/main"]
