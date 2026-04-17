@@ -1,0 +1,16 @@
+{
+  "name": "crud-equipamentos",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "npm run dev --workspace=apps/frontend",
+    "build": "npm run build --workspace=apps/frontend",
+    "lint": "npm run lint --workspace=apps/frontend",
+    "backend:build": "cd apps/backend && ./mvnw clean package -DskipTests",
+    "docker:up": "docker compose up --build",
+    "docker:down": "docker compose down"
+  },
+  "workspaces": [
+    "apps/frontend"
+  ]
+}
