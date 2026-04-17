@@ -16,7 +16,7 @@ import { Equipment } from './equipment/entities/equipment.entity';
       username: process.env.DB_USERNAME || 'admin',
       password: process.env.DB_PASSWORD,
       entities: [User, Equipment],
-      synchronize: true,
+      synchronize: process.env.NODE_ENV !== 'production',
       logging: false,
     }),
     UsersModule,
